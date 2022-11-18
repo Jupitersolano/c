@@ -11,10 +11,6 @@ crop_recommendation_model = pickle.load(
     open(crop_recommendation_model_path, 'rb'))
 
 
-@App.get("/saludo")
-def root():
-        return{"message": "Hola"}
-
 @ App.route('/crop-predict', methods=['POST'])
 def crop_prediction():
    
@@ -29,17 +25,12 @@ def crop_prediction():
         Ganacia_seco = int(request.form['Peso temporada seca'])
         Ganacia_agua = int(request.form['Peso temporada lluviosa'])
 
-        # state = request.form.get("stt")
-        city = request.form.get("city")
-
-        
+               
         data = np.array([[N, P, K, temperature, humidity, ph, rainfall, humidity, temperature,Ganacia_seco, Ganacia_agua]])
         my_prediction = crop_recommendation_model.predict(data)
         final_prediction = my_prediction[0]
 
-        return
-
-       # return render_template('crop-result.html', prediction=final_prediction, title=title)
+        return(final_prediction)
 
 if __name__ == "__main__":
     App.run("main:App", port= 8000)      
