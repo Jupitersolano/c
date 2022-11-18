@@ -1,5 +1,5 @@
 import pickle
-import request
+import requests
 import config
 import numpy as np
 from fastapi import FastAPI
@@ -14,16 +14,16 @@ crop_recommendation_model = pickle.load(
 @ App.route('/crop-predict', methods=['POST'])
 def crop_prediction():
    
-    if request.method == 'POST':
-        N = int(request.form['nitrogen'])
-        P = int(request.form['phosphorous'])
-        K = int(request.form['pottasium'])
-        ph = float(request.form['ph'])
-        rainfall = float(request.form['rainfall'])
-        humidity = float(request.form['humedad relativa en %'])
-        temperature = int(request.form['Temperatura en celsius'])
-        Ganacia_seco = int(request.form['Peso temporada seca'])
-        Ganacia_agua = int(request.form['Peso temporada lluviosa'])
+    if requests.method == 'POST':
+        N = int(requests.form['nitrogen'])
+        P = int(requests.form['phosphorous'])
+        K = int(requests.form['pottasium'])
+        ph = float(requests.form['ph'])
+        rainfall = float(requests.form['rainfall'])
+        humidity = float(requests.form['humedad relativa en %'])
+        temperature = int(requests.form['Temperatura en celsius'])
+        Ganacia_seco = int(requests.form['Peso temporada seca'])
+        Ganacia_agua = int(requests.form['Peso temporada lluviosa'])
 
                
         data = np.array([[N, P, K, temperature, humidity, ph, rainfall, humidity, temperature,Ganacia_seco, Ganacia_agua]])
